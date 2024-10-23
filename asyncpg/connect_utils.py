@@ -7,6 +7,7 @@
 
 import asyncio
 import collections
+from collections.abc import Sequence
 import enum
 import functools
 import getpass
@@ -165,7 +166,9 @@ def _read_password_from_pgpass(
     return None
 
 
-def _validate_port_spec(hosts, port):
+def _validate_port_spec(
+    hosts: "Sequence[object]", port: typing.Union[int, typing.List[int]]
+) -> typing.List[int]:
     if isinstance(port, list):
         # If there is a list of ports, its length must
         # match that of the host list.
